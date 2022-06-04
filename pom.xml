@@ -9,11 +9,11 @@
 		<version>2.3.1.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>pe.com.bootcamp.microservice.deposit</groupId>
-	<artifactId>project-one-ms-deposit</artifactId>
+	<groupId>pe.com.bootcamp.microservice.transfer</groupId>
+	<artifactId>project-one-ms-transfer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>microservice-deposit</name>
-	<description>Microservice of deposits</description>
+	<name>microservice-transfer</name>
+	<description>Microservice of transfer</description>
 
 	<properties>
 		<java.version>11</java.version>
