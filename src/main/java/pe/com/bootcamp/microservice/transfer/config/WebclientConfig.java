@@ -1,11 +1,14 @@
 package pe.com.bootcamp.microservice.transfer.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import lombok.extern.slf4j.Slf4j;
+import pe.com.bootcamp.microservice.transfer.dto.AccountUpdateForTrxRequest;
+import pe.com.bootcamp.microservice.transfer.dto.AccountUpdateForTrxResponse;
 import pe.com.bootcamp.microservice.transfer.model.Account;
 import pe.com.bootcamp.microservice.transfer.model.Ewallet;
 import reactor.core.publisher.Mono;
@@ -14,19 +17,32 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class WebclientConfig {
 
-	private final WebClient.Builder builder = WebClient.builder();
 
-	public Mono<Account> getAccount(String idAccount) {
+	@Autowired
+    private  WebClient.Builder builder;
+
+	public Mono<AccountUpdateForTrxResponse> getAccount(AccountUpdateForTrxRequest numAccount) {
 		log.info("Dentro del metodo getAccount");
-		return builder.build().get().uri("http://localhost:8080/accounts/bank-account/" + idAccount).retrieve()
-				.bodyToMono(Account.class);
+		return builder
+				.baseUrl("http://ms-account")
+			    .build()
+			    .post()
+				.uri("/Account/numAccount/")
+				.body(Mono.just(numAccount), AccountUpdateForTrxResponse.class)
+				.retrieve()
+				.bodyToMono(AccountUpdateForTrxResponse.class);
 	}
 
-	public Mono<Account> updateAccount(Account Account) {
+	public Mono<AccountUpdateForTrxResponse> updateAccount(AccountUpdateForTrxRequest Account) {
 		log.info("Dentro del metodo updateAccount");
-		return builder.build().put().uri("http://localhost:8080/accounts/bank-account/update")
-				.contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromValue(Account)).retrieve()
-				.bodyToMono(Account.class);
+		return builder
+				.baseUrl("http://ms-account")
+			    .build()
+			    .put()
+				.uri("/Account/updateAccountTrx/")
+				.body(Mono.just(Account), AccountUpdateForTrxResponse.class)
+				.retrieve()
+				.bodyToMono(AccountUpdateForTrxResponse.class);
 	}
 	
 	

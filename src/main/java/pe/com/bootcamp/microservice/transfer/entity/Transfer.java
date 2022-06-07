@@ -24,8 +24,8 @@ public class Transfer {
 	@Id
 	private String id;
 	private String numDocUser;
-	private String idOriginAccount;
-	private String idDestinyAccount;
+	private String numOriginAccount; //id
+	private String numDestinyAccount;//id
 	private String bankDestiny;
 	private String email;
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
